@@ -24,7 +24,7 @@
             <div class="col-md-8 mx-auto">
                 <h2>myプロフィール作成</h2>
                 <form action="{{ action('Admin\ProfileController@create') }}" method="post" enctype="multipart/form-data">
-                    
+                    {{--14 投稿データを保存しよう 課題６の確認--}}
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
