@@ -15,33 +15,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('news/create', 'Admin\NewsController@add');
+    Route::post('news/create', 'Admin\NewsController@create');
+    Route::get('news', 'Admin\NewsController@index');
+    Route::get('news/edit', 'Admin\NewsController@edit');
+    Route::post('news/edit', 'Admin\NewsController@update');
+    Route::get('news/delete', 'Admin\NewsController@delete');
 });
 
- //09 Routingについて理解する
- //課題４−１　//12 ユーザー認証を実装する 課題２
-Route::group(['prefix' => 'admin'], function() {
-     Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
-    //13 ニュース投稿画面を作成しよう 課題３
-     Route::post('profile/create', 'Admin\ProfileController@create')->middleware('auth');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+    Route::get('profile/create', 'Admin\ProfileController@add');
+    Route::post('profile/create', 'Admin\ProfileController@create');
+    Route::get('profile/edit', 'Admin\ProfileController@edit');
+    Route::post('profile/edit', 'Admin\ProfileController@update');
 });
-//課題４−２ //12 ユーザー認証を実装する 課題３
-Route::group(['prefix' => 'admin'], function() {
-     Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
-     //13 ニュース投稿画面を作成しよう 課題６
-     Route::post('profile/edit', 'Admin\ProfileController@update')->middleware('auth');
-});
+
+Route::get('/', 'NewsController@index');
+Route::get('profile', 'ProfileController@index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
-});
-
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-     Route::get('news/create', 'Admin\NewsController@add');
-     Route::post('news/create', 'Admin\NewsController@create'); # 追記
-});
-

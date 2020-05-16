@@ -15,4 +15,8 @@ class News extends Model
         'hobby' => 'required',
         'introduction' => 'required',
     );
+    public function profilehistory()
+    {
+        return $this->hasMany('App\ProfileHistory');
+    }
 }
